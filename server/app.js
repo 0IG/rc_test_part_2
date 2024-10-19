@@ -4,7 +4,12 @@ const logger = require("morgan");
 const cors = require("cors");
 
 const app = express();
-const secretKey = "supersecretkey";
+const secretKey = process.env.SUPER_SECRET_KEY;
+
+if (!secretKey) {
+  console.error("SUPER_SECRET_KEY environment variable is not set");
+  process.exit(1);
+}
 
 app.use(cors());
 app.use(logger("dev"));
