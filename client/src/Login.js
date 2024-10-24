@@ -14,7 +14,7 @@ const SignInForm = () => {
         username,
         password,
       });
-      setMessage(`Success! Jwt token => ${response.data.token}`);
+      setMessage(`Success! Jwt token => ${response.data.accessToken}`);
 
       console.log("Login successful: here's the jwt token ->", response.data);
     } catch (error) {
@@ -28,13 +28,17 @@ const SignInForm = () => {
       <h2>Sign In</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          There is no database and users: Please user the following to emulate
+          There is no database and users:
+          <br />
+          Please enter following username and password to emulate
           your login experience
+          <br />
           <br />
           username: admin
           <br />
           password: password
         </div>
+        <br />
         <div>
           <label>Username:</label>
           <input
