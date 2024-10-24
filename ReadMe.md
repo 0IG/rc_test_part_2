@@ -3,6 +3,7 @@
 A secure authentication system built with Node.js/Express backend and React frontend, featuring JWT tokens and refresh token rotation.
 
 ## Folder Structure
+```
 root
 │
 ├── client (React frontend)
@@ -15,7 +16,7 @@ root
 │ └── node_modules
 │
 └── package.json (root)
-
+```
 ## Environment Setup
 
 Create a `.env` file in the server directory with the following variables:
