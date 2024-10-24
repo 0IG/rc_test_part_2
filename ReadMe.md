@@ -27,7 +27,7 @@ NODE_ENV=development
 ## Required Dependencies
 
 ### Server Dependencies
-```json
+```
 {
   "dependencies": {
     "bcrypt": "^5.x.x",
