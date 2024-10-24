@@ -46,12 +46,12 @@ Create a `.env` file in the server directory with the following variables:
 ## How to Run This Application (At the ROOT of the FOLDER)
 
 ### Install dependencies for the client and server:
-npm run install:client
+`npm run install:client`
 
-npm run install:server
+`npm run install:server`
 
 #### Start the application:
-npm run start
+`npm run start`
 
 #### Once running:
 
