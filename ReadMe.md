@@ -18,11 +18,12 @@ root
 
 ## Environment Setup
 
-1. Create a `.env` file in the server directory with the following variables:
-PORT=3001
-SECRET_KEY=your_jwt_secret_key_here
-REFRESH_SECRET_KEY=your_refresh_token_secret_here
-NODE_ENV=development
+Create a `.env` file in the server directory with the following variables:
+
+* PORT=3001
+* SECRET_KEY=your_jwt_secret_key_here
+* REFRESH_SECRET_KEY=your_refresh_token_secret_here
+* NODE_ENV=development
 
 ## Required Dependencies
 
@@ -40,87 +41,95 @@ NODE_ENV=development
     "morgan": "^1.x.x"
   }
 }
+```
+## How to Run This Application (At the ROOT of the FOLDER)
 
-How to Run This Application (At the ROOT of the FOLDER)
-
-Install dependencies for the client and server:
+### Install dependencies for the client and server:
 npm run install:client
+
 npm run install:server
 
-Start the application:
+#### Start the application:
 npm run start
 
-Once running:
+#### Once running:
 
 React frontend: http://localhost:3000
 Express backend: http://localhost:3001/testing
 
-API Endpoints
-Public Routes
+## API Endpoints
+### Public Routes
 
-POST /register - Register a new user
-POST /login - Login and receive tokens
-GET /testing - Test if server is running
+* POST /register - Register a new user
+* POST /login - Login and receive tokens
+* GET /testing - Test if server is running
 
-Protected Routes (Requires Authentication)
+### Protected Routes (Requires Authentication)
 
-GET /protected - Test protected route
-GET /user-info - Get current user information
-POST /token - Refresh access token
-DELETE /logout - Logout current session
-DELETE /logout-all - Logout all sessions
+* GET /protected - Test protected route
+* GET /user-info - Get current user information
+* POST /token - Refresh access token
 
-Admin Only Routes
+* DELETE /logout - Logout current session
+
+* DELETE /logout-all - Logout all sessions
+
+### Admin Only Routes
 
 GET /users - Get all users
-POST /admin/create-user - Create a new user
 
-Authentication Flow
+POST /admin/create-user - Create a new admin
 
-Registration:
+## Authentication Flow
+
+### Registration:
 
 Password must meet complexity requirements (min 8 chars, uppercase, lowercase, number, special char)
 Returns 201 on success
 
-Login:
+### Login:
 
 Returns an access token (15min validity)
 Sets a refresh token as an HTTP-only cookie (3hr validity)
 
-Token Refresh:
+### Token Refresh:
 
 Uses the refresh token cookie to get a new access token
 Implements token rotation for security
 
-Logout:
+### Logout:
 
-Invalidates current session
-Clears refresh token cookie
-Adds access token to blacklist
+* Invalidates current session
+* Clears refresh token cookie
+* Adds access token to blacklist
 
-Security Features
+## Security Features
 
-Password hashing with bcrypt
-Rate limiting (100 requests per 15 minutes)
-Token blacklisting
-CORS protection
-Secure cookie configuration:
+* Password hashing with bcrypt
+* Rate limiting (100 requests per 15 minutes)
+* Token blacklisting
+* CORS protection
 
-HTTP-only
-Secure in production
-Strict same-site policy
-3-hour expiration
+### Secure cookie configuration:
+
+*  HTTP-only
+* Secure in production
+* Strict same-site policy
+* 3-hour expiration
 
 
-Role-based access control (user, moderator, admin)
+## Role-based access control (user, moderator, admin)
 Regular cleanup of expired blacklisted tokens
 
 Frontend Integration
 For frontend integration, set up your Axios instance or fetch calls with:
+
 // Add the access token to all protected requests
+
 headers: {
   'Authorization': `Bearer ${accessToken}`
 }
 
 // Axios default config
+
 axios.defaults.withCredentials = true; // Important for cookies
