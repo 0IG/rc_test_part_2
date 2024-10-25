@@ -53,7 +53,7 @@ Create a `.env` file in the server directory with the following variables:
 #### Start the application:
 `npm run start`
 
-#### Once running:
+### Once running:
 
 React frontend: http://localhost:3000
 Express backend: http://localhost:3001/testing

@@ -28,8 +28,6 @@ const SignInForm = () => {
       <h2>Sign In</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          There is no database and users:
-          <br />
           Please enter following username and password to emulate
           your login experience
           <br />

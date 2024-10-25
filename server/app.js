@@ -100,7 +100,7 @@ function cleanupTokenBlacklist() {
   });
 }
 
-setInterval(cleanupTokenBlacklist, 1000 * 60 * 15 );
+setInterval(cleanupTokenBlacklist, 1000 * 60 * 15 ); // 15 minutes
 
 // Routes
 
@@ -111,7 +111,14 @@ app.post("/register", async (req, res) => {
   // Password complexity check
   const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   if (!passwordRegex.test(password)) {
-    return res.status(400).json({ message: "Password does not meet complexity requirements" });
+    return res.status(400).json({ message: "Password does not meet complexity requirements", 
+      required: {
+        "Must be at least 8 characters long": password.length >= 8,
+        "Must contain at least one uppercase letter": /[A-Z]/.test(password),
+        "Must contain at least one lowercase letter": /[a-z]/.test(password),
+        "Must contain at least one number": /\d/.test(password),
+        "Must contain at least one special character": /[@$!%*?&]/.test(password)
+      }});
   }
   
   try {
