@@ -119,22 +119,6 @@ Implements token rotation for security
 * 3-hour expiration
 
 
-## Role-based access control (user, moderator, admin)
-Regular cleanup of expired blacklisted tokens
-
-Frontend Integration
-For frontend integration, set up your Axios instance or fetch calls with:
-
-// Add the access token to all protected requests
-
-headers: {
-  'Authorization': `Bearer ${accessToken}`
-}
-
-// Axios default config
-
-axios.defaults.withCredentials = true; // Important for cookies
-
 ## Important Links
 ### [Sources](https://joinpursuit.notion.site/Sources-125d2512d7ba806bb762ebfd7f08c660)
 ###  [Trello Board](https://trello.com/invite/b/671acb59948fbe8c03727cc0/ATTI549954698c11d8ad09f7c79cd645d54e7B8B4939/red-canary-take-home)
