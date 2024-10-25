@@ -23,6 +23,18 @@ const SignInForm = () => {
     }
   };
 
+  fetch("http://localhost:3001/login", {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      username: username,
+      password: password,
+    }),
+  });
+
   return (
     <div>
       <h2>Sign In</h2>

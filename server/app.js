@@ -14,7 +14,12 @@ const refreshSecretKey = process.env.REFRESH_SECRET_KEY;
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
 app.use(logger("dev"));
 app.use(express.json());
 app.use(cookieParser());
@@ -154,8 +159,9 @@ app.post("/login", async (req, res) => {
       
       res.cookie('refreshToken', refreshToken, { 
         httpOnly: true, 
-        secure: process.env.NODE_ENV === 'production', 
-        sameSite: 'strict',
+        secure: false, 
+        sameSite: 'lax', // lax, strict, none (lax for development) / (strict for production)
+        path: '/',
         maxAge: 1000 * 60 * 60 * 3 // 3 hours
       });
       
