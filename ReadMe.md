@@ -114,7 +114,6 @@ Implements token rotation for security
 ### Secure cookie configuration:
 
 *  HTTP-only
-* Secure in production
 * Strict same-site policy
 * 3-hour expiration
 
