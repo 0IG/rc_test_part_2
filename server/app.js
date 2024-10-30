@@ -6,6 +6,7 @@ const cors = require("cors");
 const bcrypt = require("bcrypt");
 const rateLimit = require("express-rate-limit");
 const cookieParser = require("cookie-parser");
+const helmet = require("helmet");
 const app = express();
 
 // Environment variables
@@ -23,7 +24,7 @@ app.use(cors({
 app.use(logger("dev"));
 app.use(express.json());
 app.use(cookieParser());
-
+app.use(helmet());
 // Blacklist
 let tokenBlacklist = new Set();
 
@@ -219,6 +220,8 @@ app.get("/protected", authenticateToken, (req, res) => {
 
 // Get all users (admin only)
 app.get("/users", authenticateToken, authorizeRole("admin"), (req, res) => {
+  // If you'd like to see hashed passwords, uncomment the following line and comment the line current safeUsers func.
+  // const safeUsers = users.map(({ id, username, password, role }) => ({ id, username, role }));
   const safeUsers = users.map(({ id, username, role }) => ({ id, username, role }));
   res.json(safeUsers);
 });
