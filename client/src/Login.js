@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./Login.scss";
 
 const SignInForm = () => {
   const [username, setUsername] = useState("");
@@ -36,10 +37,10 @@ const SignInForm = () => {
   });
 
   return (
-    <div>
-      <h2>Sign In</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+    <div className="Login">
+      <h2 className="Login__title">Sign In</h2>
+      <form onSubmit={handleSubmit} className="Login__form">
+        <div className="Login__instructions">
           Please enter following username and password to emulate
           your login experience
           <br />
@@ -49,25 +50,27 @@ const SignInForm = () => {
           password: password
         </div>
         <br />
-        <div>
-          <label>Username:</label>
+        <div className="Login__username">
+          <label className="Login__labelUserName">Username:</label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
+            className="Login__inputUserName"
           />
         </div>
-        <div>
-          <label>Password:</label>
+        <div className="Login__password">
+          <label className="Login__labelPassword">Password:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className="Login__inputPassword"
           />
         </div>
-        <button type="submit">Sign In</button>
+        <button type="submit" className="Login__button">Sign In</button>
       </form>
       {message && <p>{message}</p>}
     </div>

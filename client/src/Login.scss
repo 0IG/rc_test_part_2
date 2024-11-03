@@ -1,0 +1,57 @@
+.Login {
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__username {
+        width: 50%;
+        padding-bottom: 8px;
+    }
+
+    &__labelUserName {
+        font-size: 15px;
+        font-weight: bold;
+        padding-right: 8px;
+    }
+
+    &__inputUserName {
+        width: 35%;
+        height: 25px;
+        border: 1px solid black;
+        outline: none;
+    }
+
+    &__password {
+        width: 50%;
+        padding-bottom: 8px;
+    }
+
+    &__labelPassword {
+        font-size: 15px;
+        font-weight: bold;
+        padding-right: 8px;
+    }
+
+    &__inputPassword {
+        width: 35%;
+        height: 25px;
+        border: 1px solid black;
+        outline: none;
+    }
+
+    &__button {
+        width: 20%;
+        height: 40px;
+        font-size: 10px;
+        background-color: black;
+        color: white;
+        font-weight: bold;
+        border: solid black;
+        margin-top: 15px;
+        cursor: pointer;
+    }
+}
