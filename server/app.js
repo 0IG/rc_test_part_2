@@ -22,6 +22,7 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(cookieParser());
@@ -36,7 +37,6 @@ const limiter = rateLimit({
 });
 app.use(limiter);
 
-// Data storage (in-memory for demo purposes)
 let users = [];
 let refreshTokens = new Set();
 

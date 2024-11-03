@@ -21,10 +21,26 @@ root
 
 Create a `.env` file in the server directory with the following variables:
 
-* PORT=3001
-* SECRET_KEY=your_jwt_secret_key_here
-* REFRESH_SECRET_KEY=your_refresh_token_secret_here
-* NODE_ENV=development
+* PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----\n_____Your Private Key_____\n-----END RSA PRIVATE KEY-----"
+
+* PUBLIC_KEY="-----BEGIN PUBLIC KEY-----\n___Your Public Key___\n-----END PUBLIC KEY-----"
+
+* REFRESH_PRIVATE_KEY="-----BEGIN RSA PRIVATE KEY-----\n++++Your Refresh Private Key++++\n-----END RSA PRIVATE KEY-----"
+
+* PORT = 3001
+
+## Generating RS256 Keys
+
+#### Run the following in your bash terminal:
+
+`openssl genrsa -out private.key 2048`
+
+`openssl rsa -in private.key -pubout -out public.key`
+
+You can now cat private.key & public key and plug them into your .env file.
+
+
+
 
 ## Required Dependencies
 
