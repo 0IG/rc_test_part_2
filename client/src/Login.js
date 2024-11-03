@@ -6,23 +6,37 @@ const SignInForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [token, setToken] = useState("");
+  const [copySuccess, setCopySuccess] = useState(false);
+  const [loginStatus, setLoginStatus] = useState({success: false, message: ""});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post("http://localhost:3001/login", {
         username,
         password,
       });
-      setMessage(`Success! Jwt token => ${response.data.accessToken}`);
-
-      console.log("Login successful: here's the jwt token ->", response.data);
+      setMessage(`Success Login!`);
+      setToken(response.data.accessToken);
+      setLoginStatus({success: true, message: "Login Successful. Welcome!"});
+      console.log("Login successful: here's your JSON Web Token ->", response.data);
     } catch (error) {
-      setMessage("Login failed. Please check your credentials.");
+      setLoginStatus({success: false, message: "Login Failed. Please check your credentials."});
+      setMessage(`Login Failed. Please check your credentials.`);
+      setToken("");
       console.error("Error logging in:", error);
     }
   };
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(token);
+      setCopySuccess(true);
+      } catch (error) {
+        console.error("Failed to copy: ", error);
+    }
+  }
 
   fetch("http://localhost:3001/login", {
     method: "POST",
@@ -72,7 +86,24 @@ const SignInForm = () => {
         </div>
         <button type="submit" className="Login__button">Sign In</button>
       </form>
-      {message && <p>{message}</p>}
+      {loginStatus.message && (
+        <div className={`Login__message ${loginStatus.success ? 'Login__message--success' : 'Login__message--error'}`}>
+          {loginStatus.message}
+        </div>
+      )}
+      <div className="Login__tokenWrapper">
+        <div className="Login__tokenContainer">
+          <p className="Login__token">{token}</p>
+          {token && (
+            <button
+              onClick={handleCopy}
+              className={`Login__copyButton ${copySuccess ? 'Login__copyButton--success' : ''}`}
+            >
+              {copySuccess ? "Copied!" : "Copy Token"}
+            </button>
+          )}
+        </div>
+       </div>
     </div>
   );
 };

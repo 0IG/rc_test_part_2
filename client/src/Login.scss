@@ -1,5 +1,7 @@
 .Login {
 
+    font-stretch: expanded;
+
     &__form {
         display: flex;
         flex-direction: column;
@@ -53,5 +55,61 @@
         border: solid black;
         margin-top: 15px;
         cursor: pointer;
+    }
+
+    &__message {
+        text-align: center;
+        margin: 1rem 0;
+
+        &--success {
+            color: green;
+            font-weight: bold;
+        }
+    }
+
+    &__tokenContainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+        width: 80%;
+        max-width: 400px;
+    }
+
+    &__tokenWrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__token {
+        word-break: break-all;
+        margin: 0;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    &__copyButton {
+        padding: 8px 16px;
+        width: 25%;
+        background-color: black;
+        color: white;
+        font-weight: bold;
+        font-size: 10px;
+        border: 1px solid gainsboro;
+        white-space: nowrap;
+        flex-shrink: 0;
+        cursor: pointer;
+
+        &:hover {
+            background-color: lightgray;
+        }
+
+        &--success {
+            background-color: green;
+        }
     }
 }

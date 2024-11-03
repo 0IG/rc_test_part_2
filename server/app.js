@@ -295,8 +295,5 @@ app.get("/testing", (req, res) => {
 initializeUsers().then(() => {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
-    console.log("Private key:", privateKey);
-    console.log("Public key:", publicKey);
-    console.log("Refresh private key:", refreshPrivateKey);
   });
 });
