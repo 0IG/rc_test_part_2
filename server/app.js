@@ -10,8 +10,9 @@ const helmet = require("helmet");
 const app = express();
 
 // Environment variables
-const secretKey = process.env.SECRET_KEY;
-const refreshSecretKey = process.env.REFRESH_SECRET_KEY;
+const privateKey = process.env.PRIVATE_KEY; 
+const publicKey = process.env.PUBLIC_KEY;
+const refreshPrivateKey = process.env.REFRESH_SECRET_KEY || privateKey;
 const PORT = process.env.PORT || 3001;
 
 // Middleware
@@ -63,8 +64,10 @@ async function initializeUsers() {
 function generateAccessToken(user) {
   return jwt.sign(
     { id: user.id, username: user.username, role: user.role },
-    secretKey,
-    { expiresIn: '15m' }
+    privateKey,
+    { expiresIn: '15m',
+      algorithm: 'RS256'
+     }
   );
 }
 
@@ -74,7 +77,7 @@ function authenticateToken(req, res, next) {
   const token = authHeader && authHeader.split(" ")[1];
   if (token == null) return res.sendStatus(401);
   
-  jwt.verify(token, secretKey, (err, user) => {
+  jwt.verify(token, publicKey, {algorithm: ['RS256']},(err, user) => {
     if (err) return res.sendStatus(403);
 
     if (tokenBlacklist.has(token)) {
@@ -99,7 +102,7 @@ function authorizeRole(role) {
 function cleanupTokenBlacklist() {
   tokenBlacklist.forEach(token => {
     try {
-      jwt.verify(token, secretKey);
+      jwt.verify(token, publicKey, { algorithm: ['RS256'] });
     } catch (err) {
       tokenBlacklist.delete(token);
     }
@@ -154,7 +157,8 @@ app.post("/login", async (req, res) => {
       const accessToken = generateAccessToken(user);
       const refreshToken = jwt.sign(
         { id: user.id, username: user.username, role: user.role },
-        refreshSecretKey
+        refreshPrivateKey,
+        {algorithm: 'RS256'}
       );
       refreshTokens.add(refreshToken);
       
@@ -182,7 +186,7 @@ app.post("/token", (req, res) => {
   if (refreshToken == null) return res.sendStatus(401);
   if (!refreshTokens.has(refreshToken)) return res.sendStatus(403);
   
-  jwt.verify(refreshToken, refreshSecretKey, (err, user) => {
+  jwt.verify(refreshToken, refreshPrivateKey, {algorithm: ['RS256']}, (err, user) => {
     if (err) return res.sendStatus(403);
     const accessToken = generateAccessToken({ id: user.id, username: user.username, role: user.role });
     res.json({ accessToken: accessToken });
@@ -291,5 +295,8 @@ app.get("/testing", (req, res) => {
 initializeUsers().then(() => {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+    console.log("Private key:", privateKey);
+    console.log("Public key:", publicKey);
+    console.log("Refresh private key:", refreshPrivateKey);
   });
 });
